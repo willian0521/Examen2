@@ -1,0 +1,33 @@
+services:
+
+  web:
+    build: ./webapp
+    container_name: nomina-web
+    ports:
+      - "8080:5000"
+    depends_on:
+      - db
+    networks:
+      - red-nomina
+
+  db:
+    image: mysql:8.0
+    container_name: nomina-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Prueba2025
+      MYSQL_DATABASE: nomina_db
+      MYSQL_USER: admin_nomina
+      MYSQL_PASSWORD: Admin123
+    volumes:
+      - datos-nomina:/var/lib/mysql
+    networks:
+      - red-nomina
+
+volumes:
+  datos-nomina:
+
+networks:
+  red-nomina:
+    driver: bridge
